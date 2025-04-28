@@ -4,4 +4,4 @@
 # source venv/bin/activate
 
 # Run the Python script with any passed arguments, or without arguments if none are provided
-python3 src/task_4/main.py "$@" "--alternative"
+python3 src/main.py "$@" "--alternative"

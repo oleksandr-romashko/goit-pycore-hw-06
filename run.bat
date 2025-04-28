@@ -4,4 +4,4 @@
 :: call venv\Scripts\activate
 
 :: Run the Python script with any passed arguments, or without arguments if none are provided
-python src\task_4\main.py %* --alternative
+python src\main.py %*
