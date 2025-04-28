@@ -1,0 +1,165 @@
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Task 1: Print Fibonacci numbers for n = 10 and 15 (default examples)",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_1/main.py",
+                "args": [],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 1: Print the 20th Fibonacci number",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_1/main.py",
+                "args": [
+                    "20",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 1: Error: invalid input",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_1/main.py",
+                "args": [
+                    "not_a_number",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 1: Error: value too large (recursion depth exceeded)",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_1/main.py",
+                "args": [
+                    "2000",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 2: Calculates the total income found in a given text",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_2/main.py",
+                "args": [],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Log file not found",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/no_such_file.log",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Path object is not a file",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/decorators",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Empty log file",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example_empty.log",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: No permissions for log file",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example_no_permissions.log",
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Show summary stats of all logs",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example.log"
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Filter by Level (error)",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example.log",
+                    "ERROR"
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Show Issues",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example_with_errors.log",
+                    "--issues"
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: Analyze normally, but treat unknown levels as issues",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example_with_unknown_log_levels.log",
+                    "--issue-unknown"
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 3: All Options Combined (filter to INFO, show issues, issue unknown levels)",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_3/main.py",
+                "args": [
+                    "./src/task_3/example_with_errors.log",
+                    "INFO",
+                    "--issues",
+                    "--issue-unknown"
+                ],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 4: Launch in the typical mode (menu handling in match case)",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_4/main.py",
+                "args": [],
+                "console": "integratedTerminal"
+            },
+            {
+                "name": "Task 4: Launch in the alternative mode (menu as a data structure)",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/task_4/main.py",
+                "args": [
+                    "--alternative"
+                ],
+                "console": "integratedTerminal"
+            },
+        ]
+    }
