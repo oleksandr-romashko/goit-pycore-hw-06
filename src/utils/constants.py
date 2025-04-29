@@ -36,4 +36,4 @@ INVALID_EMPTY_COMMAND_MESSAGE = "You entered an empty command. Please try again"
 # Validation constraints
 NAME_MIN_LENGTH = 2
 NAME_MAX_LENGTH = 100
-PHONE_FORMAT_DESC_STR = "9-15 digits, optionally starting with '+'"
+PHONE_FORMAT_DESC_STR = "10 digits, optionally starting with '+'"

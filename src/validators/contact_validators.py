@@ -104,12 +104,12 @@ def validate_not_phone_duplicate(args: list[str], contacts: dict) -> None:
 
 
 def validate_phone_number(args: list[str], _) -> None:
-    """Validates phone number: optional '+', 9-15 digits total."""
+    """Validates phone number: optional '+', 10 digits allowed."""
     phone = args[1]
     # Remove all non-digit characters for counting digits
     digits_only = re.sub(r"\D", "", phone)
 
-    if not 9 <= len(digits_only) <= 15:
+    if not len(digits_only) == 10:
         raise ValidationError(
             f"Invalid phone number '{phone}'. Expected {PHONE_FORMAT_DESC_STR}."
         )
