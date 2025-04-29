@@ -41,6 +41,14 @@ def validate_contact_not_in_contacts(args: list[str], contacts: dict) -> None:
             )
 
 
+def validate_contacts_not_empty(_, contacts: dict) -> None:
+    """Ensure there is at least one contact in the list."""
+    if not contacts:
+        raise ValidationError(
+            "You don't have any contacts yet, but you can add one anytime."
+        )
+
+
 def validate_contact_name_exists(args: list[str], contacts: dict) -> None:
     """Ensure a contact with the provided username exists, case-insensitively."""
     username = args[0]
@@ -70,14 +78,6 @@ def validate_not_phone_duplicate(args: list[str], contacts: dict) -> None:
     phone = args[1]
     if contacts[username] == phone:
         raise ValidationError(f"Contact '{username}' has this phone number already.")
-
-
-def validate_contacts_not_empty(_, contacts: dict) -> None:
-    """Ensure there is at least one contact in the list."""
-    if not contacts:
-        raise ValidationError(
-            "You don't have any contacts yet, but you can add one anytime."
-        )
 
 
 def validate_phone_number(args: list[str], _) -> None:
