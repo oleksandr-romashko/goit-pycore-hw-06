@@ -21,6 +21,7 @@ from validators.contact_validators import (
     validate_is_one_argument_username,
     validate_contact_not_in_contacts,
     validate_contact_name_exists,
+    validate_contact_username_length,
     validate_phone_number,
     validate_not_phone_duplicate,
     validate_contacts_not_empty,
@@ -38,6 +39,7 @@ def handle_hello() -> str:
 def handle_add(args: list[str], contacts: dict[str, str]) -> str:
     """Adds a new contact after validation."""
     validate_are_two_arguments(args, contacts)
+    validate_contact_username_length(args, contacts)
     validate_phone_number(args, contacts)
     validate_contact_not_in_contacts(args, contacts)
     return add_contact(args, contacts)
