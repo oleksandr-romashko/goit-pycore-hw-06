@@ -131,14 +131,12 @@ This task is a follow-up of the previous task **[CLI assistant bot](https://gith
 
 #### <a name="assignment-task-description"></a>Task description:
 
-Extend [your console assistant bot](https://github.com/oleksandr-romashko/goit-pycore-hw-04/blob/main/README.md#user-content-solution-3) and add error handling using decorators.
+Implement Address Book Management System using OOP classes.
 
 #### <a name="assignment-solution"></a>Solution:
 
-Solution for this task is located in the following files:
-* [src/task_4/main.py](./src/task_4/main.py) - main entry point file.
-* [src/task_4/decorators/input_error.py](./src/task_4/decorators/input_error.py) - decorator to handle input errors
-* [src/task_4/handlers/command_handlers.py](./src/task_4/handlers/command_handlers.py) - decorated handling functions
+Solution for this task is located in the following file:
+* [src/main.py](./srcmain.py) - main entry point file.
 
 Result screenshot - Task solution (launched in the typical mode (menu handling in match case):
 
@@ -150,72 +148,100 @@ Result screenshot - Task solution (Launched in the alternative mode (Data-Driven
 
 #### <a name="assignment-task-requirements"></a>Task requirements:
 
-1. All user input errors must be handled by a decorator named `input_error`.
-This decorator is responsible for returning helpful messages like:
-   * "Enter user name"
-   * "Give me name and phone please"
-   * etc.
-2. The `input_error` decorator should handle exceptions that occur in command `handler` functions, specifically:
-   * KeyError
-   * ValueError
-   * IndexError
-  When such an exception occurs, the decorator must return an appropriate error message without terminating the program.
+**Entities (Classes to Implement)**:
+
+* `Field`: Base class for record fields.
+* `Name`: Class to store the contact's name (required field).
+* `Phone`: Class to store a contact's phone number. Includes validation: must have exactly 10 digits.
+* `Record`: Class to store a contact's information, incl. a name and phones list.
+* `AddressBook`: Class to store and manage multiple Record objects.
+
+**Required Functionality**:
+* `AddressBook`:
+  * Add a Record.
+  * Find a Record by name.
+  * Delete a Record by name.
+* `Record`:
+  * Add a new Phone.
+  * Remove a Phone.
+  * Edit an existing Phone.
+  * Find a specific Phone.
 
 #### <a name="assignment-recommendations-to-the-implementation"></a>Recommendations to the implementation:
 
-As an example, a basic `input_error` decorator that handles `ValueError`:
+Provided Starter Code:
 
 ```python
-def input_error(func):
-    def inner(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except ValueError:
-            return "Give me name and phone please."
+from collections import UserDict
 
-    return inner
+class Field:
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return str(self.value)
+
+class Name(Field):
+    pass
+
+class Phone(Field):
+    pass
+
+class Record:
+    def __init__(self, name):
+        self.name = Name(name)
+        self.phones = []
+
+    def __str__(self):
+        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+
+class AddressBook(UserDict):
+    pass
 ```
 
-You can then apply this decorator to your `add_contact` command functions ho handle `ValueError`, like so:
+Example How Your Code Should Behave:
 
 ```python
-@input_error
-def add_contact(args, contacts):
-    name, phone = args
-    contacts[name] = phone
-    return "Contact added."
-```
+book = AddressBook()
 
-Your task is to:
-* Add similar decorators to other command handler functions.
-* Extend the decorator to handle other errors with specific messages.
+john_record = Record("John")
+john_record.add_phone("1234567890")
+john_record.add_phone("5555555555")
+book.add_record(john_record)
+
+jane_record = Record("Jane")
+jane_record.add_phone("9876543210")
+book.add_record(jane_record)
+
+for name, record in book.data.items():
+    print(record)
+
+john = book.find("John")
+john.edit_phone("1234567890", "1112223333")
+print(john)
+
+found_phone = john.find_phone("5555555555")
+print(f"{john.name}: {found_phone}")
+
+book.delete("Jane")
+```
 
 #### <a name="assignment-evaluation-criteria"></a>Evaluation criteria:
 
-1. Implemented an `input_error` decorator that handles user input errors for all commands.
-2. Your decorator handles the following exceptions using `input_error`:
-  * KeyError
-  * ValueError
-  * IndexError
-3. Each command-handling function is wrapped with the `input_error` decorator.
-4. The bot responds properly to various commands, and input errors are gracefully handled without stopping the program.
+Class `AddressBook`:
 
-#### <a name="assignment-usage-example"></a>Usage example according to the Task:
+* Implemented `add_record`, that adds to self.data
+* Implemented `find`, that finds item by name
+* Implemented `delete`, that delets item by name
 
-The bot should behave like this when running:
+Class `Record`:
 
-```bash
-Enter a command: add
-Enter the argument for the command
-Enter a command: add Bob
-Enter the argument for the command
-Enter a command: add Jime 0501234356
-Contact added.
-Enter a command: phone
-Enter the argument for the command
-Enter a command: all
-Jime: 0501234356
-Enter a command:
-```
+* Implemented `Name` object storage in a separate attribute
+* Implement storage of a list of `Phone` objects in a separate attribute.
+* Implemented methods for adding - `add_phone` / deletion - `remove_phone` / editing - `edit_phone` / search of `Phone` object - `find_phone`.
+
+Class `Phone`:
+
+* Implemented validate that the phone number has exactly 10 digits.
 
 </details>
