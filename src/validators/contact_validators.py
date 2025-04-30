@@ -1,15 +1,16 @@
 """
 Validators for contact management commands.
 
-Each function validates input arguments or contact data before executing a command.
-Validators raise ValidationError with descriptive messages if validation fails.
+Each function validates input arguments or contact data before executing a command
+by calling appropriate validation function.
+
+Called validators may raise ValidationError with descriptive messages if
+validation fails.
 """
-import re
-
-from utils.constants import NAME_MIN_LENGTH, NAME_MAX_LENGTH, PHONE_FORMAT_DESC_STR
-from utils.text_utils import truncate_string
-
+from validators.field_validators import validate_username_length, validate_phone_number
 from validators.errors import ValidationError
+
+from utils.deprecation_warning import transition_warning
 
 
 def validate_are_two_arguments(args: list[str], _) -> None:
@@ -119,35 +120,17 @@ def validate_contact_name_exists(args: list[str], contacts: dict) -> None:
         )
 
 
+@transition_warning("Use 'validate_username_length' from field_validators.py instead.")
 def validate_contact_username_length(args: list[str], _) -> None:
     """
-    Validates username against minimum and maximum allowed lengths.
+    Transitional wrapper for username validation.
 
     Args:
         args (list[str]): args[0] = username.
-        _ (Any): Placeholder for contacts dictionary, unused.
-
-    Raises:
-        ValidationError: If username is too short or too long.
+        _ (Any): Placeholder for contact data (unused).
     """
     username = args[0]
-
-    if len(username) < NAME_MIN_LENGTH:
-        message_too_short = (
-            f"Username '{username}' is too short "
-            f"and should have at least {NAME_MIN_LENGTH} symbols."
-        )
-        raise ValidationError(message_too_short)
-
-    if len(username) > NAME_MAX_LENGTH:
-        truncated_username = truncate_string(
-            username, max_length=15, include_suffix_in_max_length=True
-        )
-        message_too_long = (
-            f"Username'{truncated_username}' is too long "
-            f"and should have not more than {NAME_MAX_LENGTH} symbols."
-        )
-        raise ValidationError(message_too_long)
+    validate_username_length(username)
 
 
 def validate_not_phone_duplicate(args: list[str], contacts: dict) -> None:
@@ -166,22 +149,14 @@ def validate_not_phone_duplicate(args: list[str], contacts: dict) -> None:
         raise ValidationError(f"Contact '{username}' has this phone number already.")
 
 
-def validate_phone_number(args: list[str], _) -> None:
+@transition_warning("Use 'validate_phone_number' from field_validators.py instead.")
+def validate_contact_phone_number(args: list[str], _) -> None:
     """
-    Validates phone number format: 10 digits, optionally prefixed with '+'.
+    Transitional wrapper for phone number validation.
 
     Args:
         args (list[str]): args[1] = phone number.
-        _ (Any): Placeholder for contacts dictionary, unused.
-
-    Raises:
-        ValidationError: If phone number format is invalid.
+        _ (Any): Placeholder for contact data (unused).
     """
     phone = args[1]
-    # Remove all non-digit characters for counting digits
-    digits_only = re.sub(r"\D", "", phone)
-
-    if not len(digits_only) == 10:
-        raise ValidationError(
-            f"Invalid phone number '{phone}'. Expected {PHONE_FORMAT_DESC_STR}."
-        )
+    validate_phone_number(phone)

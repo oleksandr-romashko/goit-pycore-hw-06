@@ -22,7 +22,7 @@ from validators.contact_validators import (
     validate_contact_not_in_contacts,
     validate_contact_name_exists,
     validate_contact_username_length,
-    validate_phone_number,
+    validate_contact_phone_number,
     validate_not_phone_duplicate,
     validate_contacts_not_empty,
 )
@@ -40,7 +40,7 @@ def handle_add(args: list[str], contacts: dict[str, str]) -> str:
     """Adds a new contact after validation."""
     validate_are_two_arguments(args, contacts)
     validate_contact_username_length(args, contacts)
-    validate_phone_number(args, contacts)
+    validate_contact_phone_number(args, contacts)
     validate_contact_not_in_contacts(args, contacts)
     return add_contact(args, contacts)
 
@@ -49,7 +49,7 @@ def handle_add(args: list[str], contacts: dict[str, str]) -> str:
 def handle_change(args: list[str], contacts: dict[str, str]) -> str:
     """Changes an existing contact's number after validation."""
     validate_are_two_arguments(args, contacts)
-    validate_phone_number(args, contacts)
+    validate_contact_phone_number(args, contacts)
     validate_contact_name_exists(args, contacts)
     validate_not_phone_duplicate(args, contacts)
     return change_contact(args, contacts)
