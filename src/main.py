@@ -1,8 +1,12 @@
 """Assistant bot application to manage a contact list via command-line interface."""
 import sys
+import logging
 
 from colorama import init, Style
 
+from config import DEBUG
+
+from utils.log_config import init_logging
 from utils.constants import (
     WELCOME_MESSAGE_TITLE,
     WELCOME_MESSAGE_SUBTITLE,
@@ -23,8 +27,9 @@ from handlers.command_handlers import (
     handle_unknown,
 )
 
-# Initialize colorama for Windows compatibility
-init(autoreset=True)
+# Initialize the environment
+init_logging(logging.DEBUG if DEBUG else logging.INFO)  # Logging
+init(autoreset=True)  # Colorama for Windows compatibility
 
 
 def print_greeting(help_text: str = "") -> None:
