@@ -33,7 +33,9 @@ def change_contact(args: list[str], contacts: dict[str, str]) -> str:
 
 
 def show_phone(args: list[str], contacts: dict[str, str]) -> str:
-    """Display the phone number(s) for the specified contact (case-insensitive, partial match allowed).
+    """
+    Display the phone number(s) for the specified contact
+    (case-insensitive, partial match allowed).
 
     args: [search_term]
     """
