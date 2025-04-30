@@ -16,9 +16,11 @@ from utils.constants import (
     EXIT_MESSAGE,
 )
 from decorators.input_error import input_error
-from validators.contact_validators import (
+from validators.args_validators import (
     validate_are_two_arguments,
     validate_is_one_argument_username,
+)
+from validators.contact_validators import (
     validate_contact_not_in_contacts,
     validate_contact_name_exists,
     validate_contact_username_length,
