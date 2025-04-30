@@ -13,7 +13,16 @@ from validators.errors import ValidationError
 
 
 def validate_are_two_arguments(args: list[str], _) -> None:
-    """Ensures two non-empty arguments are provided: username and phone number."""
+    """
+    Ensures two non-empty arguments are provided: username and phone number.
+
+    Args:
+        args (list[str]): args[0] = username, args[1] = phone number.
+        _ (Any): Placeholder for contacts dictionary, unused here.
+
+    Raises:
+        ValidationError: If arguments are missing or empty.
+    """
     if len(args) != 2 or len(args[0].strip()) == 0 or len(args[1].strip()) == 0:
         raise ValidationError(
             "You must provide two arguments, username and a phone number."
@@ -21,13 +30,31 @@ def validate_are_two_arguments(args: list[str], _) -> None:
 
 
 def validate_is_one_argument_username(args: list[str], _) -> None:
-    """Ensures a single non-empty argument (username) is provided."""
+    """
+    Ensures a single non-empty argument (username) is provided.
+
+    Args:
+        args (list[str]): args[0] = username.
+        _ (Any): Placeholder for contacts dictionary, unused here.
+
+    Raises:
+        ValidationError: If username is missing or empty.
+    """
     if len(args) != 1 or len(args[0].strip()) == 0:
         raise ValidationError("You must provide username as a single argument.")
 
 
 def validate_contact_not_in_contacts(args: list[str], contacts: dict) -> None:
-    """Ensures the contact with the given username does not already exist (case-insensitive)."""
+    """
+    Ensures the contact with the given username does not already exist (case-insensitive).
+
+    Args:
+        args (list[str]): args[0] = username to be checked.
+        contacts (dict): Existing contacts dictionary.
+
+    Raises:
+        ValidationError: If contact already exists.
+    """
     username = args[0]
 
     # Check for exact match (avoid unnecessary iteration if an exact match is found early)
@@ -44,7 +71,16 @@ def validate_contact_not_in_contacts(args: list[str], contacts: dict) -> None:
 
 
 def validate_contacts_not_empty(_, contacts: dict) -> None:
-    """Ensures there is at least one contact in the list."""
+    """
+    Ensures there is at least one contact in the list.
+
+    Args:
+        _ (Any): Placeholder for args, not used.
+        contacts (dict): Contacts dictionary.
+
+    Raises:
+        ValidationError: If no contacts exist.
+    """
     if not contacts:
         raise ValidationError(
             "You don't have any contacts yet, but you can add one anytime."
@@ -52,7 +88,16 @@ def validate_contacts_not_empty(_, contacts: dict) -> None:
 
 
 def validate_contact_name_exists(args: list[str], contacts: dict) -> None:
-    """Ensures a contact with the provided username exists, case-insensitively."""
+    """
+    Ensures a contact with the provided username exists, case-insensitively.
+
+    Args:
+        args (list[str]): args[0] = username.
+        contacts (dict): Contacts dictionary.
+
+    Raises:
+        ValidationError: If contact doesn't exist or name differs by case.
+    """
     username = args[0]
 
     # Check case-insensitive match by converting both stored and input names to lowercase
@@ -75,7 +120,16 @@ def validate_contact_name_exists(args: list[str], contacts: dict) -> None:
 
 
 def validate_contact_username_length(args: list[str], _) -> None:
-    """Validates username minimum and maximum length."""
+    """
+    Validates username against minimum and maximum allowed lengths.
+
+    Args:
+        args (list[str]): args[0] = username.
+        _ (Any): Placeholder for contacts dictionary, unused.
+
+    Raises:
+        ValidationError: If username is too short or too long.
+    """
     username = args[0]
 
     if len(username) < NAME_MIN_LENGTH:
@@ -97,14 +151,32 @@ def validate_contact_username_length(args: list[str], _) -> None:
 
 
 def validate_not_phone_duplicate(args: list[str], contacts: dict) -> None:
-    """Ensures the new phone number is different from the existing one."""
+    """
+    Ensures the new phone number is different from the existing one.
+
+    Args:
+        args (list[str]): args[0] = username, args[1] = new phone number.
+        contacts (dict): Contacts dictionary.
+
+    Raises:
+        ValidationError: If phone number hasn't changed.
+    """
     username, phone = args
     if contacts[username] == phone:
         raise ValidationError(f"Contact '{username}' has this phone number already.")
 
 
 def validate_phone_number(args: list[str], _) -> None:
-    """Validates phone number: optional '+', 10 digits allowed."""
+    """
+    Validates phone number format: 10 digits, optionally prefixed with '+'.
+
+    Args:
+        args (list[str]): args[1] = phone number.
+        _ (Any): Placeholder for contacts dictionary, unused.
+
+    Raises:
+        ValidationError: If phone number format is invalid.
+    """
     phone = args[1]
     # Remove all non-digit characters for counting digits
     digits_only = re.sub(r"\D", "", phone)
