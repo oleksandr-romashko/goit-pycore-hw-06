@@ -21,12 +21,12 @@ from validators.args_validators import (
     validate_is_one_argument_username,
 )
 from validators.contact_validators import (
-    validate_contact_not_in_contacts,
-    validate_contact_name_exists,
+    validate_contact_not_in_contacts_wrapper,
+    validate_contact_is_in_contacts_wrapper,
     validate_contact_username_length,
     validate_contact_phone_number,
     validate_not_phone_duplicate,
-    validate_contacts_not_empty,
+    validate_contacts_not_empty_wrapper,
 )
 from contacts.contacts_manager import add_contact, change_contact, show_phone, show_all
 
@@ -43,7 +43,7 @@ def handle_add(args: list[str], contacts: dict[str, str]) -> str:
     validate_are_two_arguments(args, contacts)
     validate_contact_username_length(args, contacts)
     validate_contact_phone_number(args, contacts)
-    validate_contact_not_in_contacts(args, contacts)
+    validate_contact_not_in_contacts_wrapper(args, contacts)
     return add_contact(args, contacts)
 
 
@@ -52,7 +52,7 @@ def handle_change(args: list[str], contacts: dict[str, str]) -> str:
     """Changes an existing contact's number after validation."""
     validate_are_two_arguments(args, contacts)
     validate_contact_phone_number(args, contacts)
-    validate_contact_name_exists(args, contacts)
+    validate_contact_is_in_contacts_wrapper(args, contacts)
     validate_not_phone_duplicate(args, contacts)
     return change_contact(args, contacts)
 
@@ -70,7 +70,7 @@ def handle_phone(args: list[str], contacts: dict[str, str]) -> str:
 @input_error
 def handle_all(args: list[str], contacts: dict[str, str]) -> str:
     """Displays all saved contacts after validation."""
-    validate_contacts_not_empty(args, contacts)
+    validate_contacts_not_empty_wrapper(args, contacts)
     return show_all(args, contacts)
 
 
