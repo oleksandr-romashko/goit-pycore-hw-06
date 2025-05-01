@@ -5,6 +5,11 @@ from name import Name
 from phone import Phone
 
 from validators.errors import ValidationError
+from validators.contact_validators import MSG_PHONE_EXISTS
+
+MSG_PHONE_ADDED = "Phone added."
+MSG_PHONE_DELETED = "Phone deleted."
+MSG_PHONE_UPDATED = "Phone updated."
 
 
 class Record:
@@ -22,42 +27,47 @@ class Record:
         - Search for a phone number.
     """
 
-    def __init__(self, name):
-        self.name = Name(name)
+    def __init__(self, username: str):
+        self.name = Name(username)
         self.phones: list[Phone] = []
 
     def __str__(self):
-        # Display phones in reverse order for better UX (most recently added first)
         return (
             f"Contact name: {self.name.value}, "
-            f"phones: {'; '.join(p.value for p in self.phones[::-1])}"
+            f"phones: {'; '.join(phone.value for phone in self.phones)}"
         )
 
-    def add_phone(self, phone_number: str):
+    def add_phone(self, phone_number: str) -> str:
         """
         Adds a phone number to the record.
 
         Raises:
             ValidationError: If the phone number already exists.
         """
-        if self.find_phone(phone_number):
-            raise ValidationError(f"Phone '{phone_number}' already exists.")
-        self.phones.append(Phone(phone_number))
+        if self.__find_phone_with_index(phone_number):
+            raise ValidationError(
+                MSG_PHONE_EXISTS.format(self.name.value, phone_number)
+            )
 
-    def remove_phone(self, phone: str):
+        self.phones.append(Phone(phone_number))
+        return MSG_PHONE_ADDED
+
+    def remove_phone(self, phone_number: str) -> str:
         """
         Removes a phone from the record.
 
         Raises:
             ValidationError: If the phone number does not exist.
         """
-        search_result = self.__find_phone_with_index(phone)
+        search_result = self.__find_phone_with_index(phone_number)
         if not search_result:
-            raise ValidationError(f"Phone '{phone}' not found.")
+            raise ValidationError(f"Phone '{phone_number}' not found.")
+
         idx, _ = search_result
         self.phones.pop(idx)
+        return MSG_PHONE_DELETED
 
-    def edit_phone(self, prev_phone_number: str, new_phone_number: str):
+    def edit_phone(self, prev_phone_number: str, new_phone_number: str) -> str:
         """
         Updates an existing phone with a new phone number.
 
@@ -72,15 +82,16 @@ class Record:
         if not search_result:
             raise ValidationError(f"Phone '{prev_phone_number}' not found.")
 
-        _, phone_obj = search_result
-        phone_obj.update_phone(new_phone_number)
+        _, phone = search_result
+        phone.update_phone(new_phone_number)
+        return MSG_PHONE_UPDATED
 
     def find_phone(self, phone_number: str) -> Phone | None:
         """
         Finds and returns a phone number object from the record.
 
         Returns:
-            Phone | None: The phone object if found, otherwise None.
+            Phone: The phone object if found, otherwise None.
         """
         result = self.__find_phone_with_index(phone_number)
         return result[1] if result else None
@@ -90,7 +101,7 @@ class Record:
         Searches for a phone number and returns its index and object.
 
         Returns:
-            tuple[int, Phone] | None: A tuple of the index and phone object if found, otherwise None.
+            tuple[int, Phone]: A tuple of the index and phone object if found, otherwise None.
         """
         if not self.phones:
             return None
@@ -120,7 +131,7 @@ if __name__ == "__main__":
     assert len(record.phones) == 2
     assert record.phones[0].value == "1234567890"
     assert record.phones[1].value == "0987654321"
-    assert str(record) == "Contact name: Alice, phones: 0987654321; 1234567890"
+    assert str(record) == "Contact name: Alice, phones: 1234567890; 0987654321"
 
     # Find a phone
     found_phone = record.find_phone("1234567890")
