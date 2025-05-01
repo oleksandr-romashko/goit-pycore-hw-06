@@ -10,8 +10,10 @@ Functions:
 - show_phone(args, contacts): Shows the phone number of a contact.
 - show_all(_, contacts): Shows all saved contacts.
 """
+from utils.deprecation_warning import transition_warning
 
 
+@transition_warning("Use 'add_record' from address_book.py instead.")
 def add_contact(args: list[str], contacts: dict[str, str]) -> str:
     """Add a new contact with username and phone number.
 
@@ -22,6 +24,7 @@ def add_contact(args: list[str], contacts: dict[str, str]) -> str:
     return "Contact added."
 
 
+@transition_warning("Use 'edit_phone' from record.py instead.")
 def change_contact(args: list[str], contacts: dict[str, str]) -> str:
     """Update the phone number of an existing contact.
 
@@ -32,6 +35,7 @@ def change_contact(args: list[str], contacts: dict[str, str]) -> str:
     return "Contact updated."
 
 
+@transition_warning("Use 'find_with_partial_match' of address_book instance instead.")
 def show_phone(args: list[str], contacts: dict[str, str]) -> str:
     """
     Display the phone number(s) for the specified contact
@@ -63,6 +67,7 @@ def show_phone(args: list[str], contacts: dict[str, str]) -> str:
     )
 
 
+@transition_warning("Use string representation of address_book instance instead.")
 def show_all(_: list[str], contacts: dict[str, str]) -> str:
     """Return all saved contacts with their phone numbers."""
     # Find length of the longest username for alignment
