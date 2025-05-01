@@ -1,7 +1,10 @@
 """
-Custom error for validation problems.
-
-Intentionally implemented using functional style and avoiding OOP.
-This error is derived from the built-in ValueError.
+Custom validation errors module.
 """
-ValidationError = type("ValidationError", (ValueError,), {})
+
+
+class ValidationError(ValueError):
+    """Custom error for validation problems."""
+
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
