@@ -48,7 +48,7 @@ def show_phone(args: list[str], contacts: dict[str, str]) -> str:
 
     for username, phone in contacts.items():
         # case-insensitive, partial match
-        if search_term in username.lower():
+        if search_term.lower() in username.lower():
             matches.append((username, phone))
 
     if not matches:
