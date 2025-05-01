@@ -16,6 +16,6 @@ class Name(Field):
     Ensures the name is validated on initialization.
     """
 
-    def __init__(self, name: str):
-        validate_username_length(name)
-        super().__init__(name)
+    def __init__(self, username: str):
+        validate_username_length(username)
+        super().__init__(username)
