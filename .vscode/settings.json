@@ -3,5 +3,10 @@
     "python.analysis.extraPaths": [
         "${workspaceFolder}/src",
         "${workspaceFolder}/src/address_book",
+        "${workspaceFolder}/src/contacts",
+        "${workspaceFolder}/src/decorators",
+        "${workspaceFolder}/src/handlers",
+        "${workspaceFolder}/src/utils",
+        "${workspaceFolder}/src/validators",
     ]
 }
