@@ -58,6 +58,7 @@ Before starting, ensure that you have the following installed:
       * Activate the virtual environment.
       * Install dependencies listed in `requirements.txt`.
       * Set the `PYTHONPATH` for module imports.
+      * Set-up pre-commit hook.
 
     * **Windows (using Command Prompt):**
 
@@ -71,6 +72,7 @@ Before starting, ensure that you have the following installed:
       * Activate the virtual environment.
       * Install dependencies listed in requirements.txt.
       * Set the `PYTHONPATH` for module imports.
+      * Set-up pre-commit hook.
 
 
 #### <a name="setup-running-the-project"></a>Running the Project
@@ -135,14 +137,36 @@ Implement Address Book Management System using OOP classes.
 
 #### <a name="assignment-solution"></a>Solution:
 
-Solution for this task is located in the following file:
-* [src/main.py](./srcmain.py) - main entry point file.
+Solution for this assignment is located in the [src/address_book](./src/address_book) folder and implemented in the following files:
+* [AddressBook](./src/address_book/address_book.py) class - stores `Record`'s:
+  Functionality:
+  * add a `Record` using `add_record` method
+  * search for the `Record` using `find` method
+  * delete `Record` using `delete` method
+* [Record](./src/address_book/record.py) class - stores contact information (`Name` (required) and list of `Phone` objects):
+  Functionality:
+  * add phone numbers
+  * delete phone numbers
+  * editing phone numbers
+  * find phone number
+* [Field](./src/address_book/field.py) class - basic class for `Record` class fields
+* [Name](./src/address_book/name.py) class - class to store contact username.
+* [Phone](./src/address_book/phone.py) - class to store contact phone number.
+* Additional validation checks serving as guards during data processing:
+  * [ValidationError](./src/validators/errors.py) - Custom error for validation problems, inherited from ValueError.
+  * [args_validators.py](./src/validators/args_validators.py) - Validators for command-line argument structure before further operations.
+  * [contact_validators.py](./src/validators/contact_validators.py) - Validators for contact management commands.
+  * [field_validators.py](./src/validators/field_validators.py) - Validators for field values (name, phone, etc.).
 
-Result screenshot - Task solution (launched in the typical mode (menu handling in match case):
+UML Class Diagram of the solution (created using [Star UML](https://staruml.io/) tool, source file is located [here](./assets/uml/class_diagram-star-uml.mdj)):
+
+![UML Class Diagram](./assets/uml/class-diagram.jpg)
+
+Result screenshot - Task solution (launched in the typical mode - menu handling using match case):
 
 ![task 4 typical solution screenshot](./assets/results/task_4_typical_solution.png)
 
-Result screenshot - Task solution (Launched in the alternative mode (Data-Driven Menu):
+Result screenshot - Task solution (Launched in the alternative mode - Data-Driven Menu):
 
 ![task 4 alternative solution screenshot](./assets/results/task_4_alternative_solution.png)
 
