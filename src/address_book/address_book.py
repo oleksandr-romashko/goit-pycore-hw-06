@@ -186,6 +186,8 @@ if __name__ == "__main__":
         str(book)
     except ValidationError as exc:
         assert str(exc) == book_str_0_contacts_msg
+    else:
+        assert False, "Should raise Validation error"
 
     # Test add contact - first contact
     result_add_1 = book.add_record(record_1)
@@ -226,6 +228,8 @@ if __name__ == "__main__":
     except ValidationError as exc:
         contact_already_exists_msg = "Contact with username 'Bob' already exists."
         assert str(exc) == contact_already_exists_msg
+    else:
+        assert False, "Should raise Validation error"
     assert len(book.data) == 3
 
     # Test find - found contact
@@ -239,6 +243,8 @@ if __name__ == "__main__":
     except ValidationError as exc:
         not_found_msg = "Contact 'Unknown_name' not found."
         assert str(exc) == not_found_msg
+    else:
+        assert False, "Should raise Validation error"
 
     # Test find match - search for username match
     # single result
@@ -302,6 +308,8 @@ if __name__ == "__main__":
         book.delete("unknown_when_with_contacts")
     except ValidationError as exc:
         assert str(exc) == "Contact 'unknown_when_with_contacts' not found."
+    else:
+        assert False, "Should raise Validation error"
     assert len(book.data) == 4
 
     try:
@@ -311,12 +319,16 @@ if __name__ == "__main__":
             str(exc)
             == "Contact 'alex' not found, but a contact exists under 'Alex'. Did you mean 'Alex'?"
         )
+    else:
+        assert False, "Should raise Validation error"
     assert len(book.data) == 4
 
     try:
         book.delete("     Alex   ")
     except ValidationError as exc:
         assert str(exc) == "Contact '     Alex   ' not found."
+    else:
+        assert False, "Should raise Validation error"
     assert len(book.data) == 4
 
     result_delete_1 = book.delete("Alex")
@@ -343,6 +355,8 @@ if __name__ == "__main__":
         book.delete("unknown_when_no_contacts")
     except ValidationError as exc:
         assert str(exc) == "Contact 'unknown_when_no_contacts' not found."
+    else:
+        assert False, "Should raise Validation error"
     assert len(book.data) == 0
 
     # Test __str__ with 0 records after all have been deleted
@@ -353,5 +367,7 @@ if __name__ == "__main__":
         str(book)
     except ValidationError as exc:
         assert str(exc) == book_str_0_contacts_after_deletion_msg
+    else:
+        assert False, "Should raise Validation error"
 
     print("AddressBook tests passed.")
