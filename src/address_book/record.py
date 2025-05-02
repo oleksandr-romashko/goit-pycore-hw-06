@@ -120,8 +120,17 @@ if __name__ == "__main__":
     assert len(record.phones) == 0
     assert str(record) == "Contact name: Alice, phones: "
 
+    # Try to create Record instance with empty name
+    try:
+        record = Record("")
+    except ValidationError as exc:
+        assert str(exc) == "Username cannot be empty or just whitespace."
+    else:
+        assert False, "Should raise Validation error"
+
     # Add a phone number
-    record.add_phone("1234567890")
+    result_add = record.add_phone("1234567890")
+    assert result_add == MSG_PHONE_ADDED
     assert len(record.phones) == 1
     assert record.phones[0].value == "1234567890"
     assert str(record) == "Contact name: Alice, phones: 1234567890"
@@ -138,16 +147,57 @@ if __name__ == "__main__":
     assert found_phone is not None
     assert found_phone.value == "1234567890"
 
+    assert record.find_phone("9999999999") is None
+
     # Edit a phone
-    record.edit_phone("1234567890", "1122334455")
+    result_edit = record.edit_phone("1234567890", "1122334455")
+    assert result_edit == MSG_PHONE_UPDATED
     assert record.find_phone("1234567890") is None
     assert record.find_phone("1122334455") is not None
     assert record.find_phone("1122334455").value == "1122334455"
 
+    try:
+        record.edit_phone("1234567890", "8888888888")
+    except ValidationError as exc:
+        assert str(exc) == "Phone '1234567890' not found."
+    else:
+        assert False, "Should raise Validation error"
+
+    try:
+        record.edit_phone("1122334455", "0987654321")
+    except ValidationError as exc:
+        assert str(exc) == "Phone '0987654321' already exists."
+    else:
+        assert False, "Should raise Validation error"
+
     # Remove a phone
-    record.remove_phone("0987654321")
+    result_remove_1 = record.remove_phone("0987654321")
+    assert result_remove_1 == MSG_PHONE_DELETED
     assert len(record.phones) == 1
     assert record.phones[0].value == "1122334455"
     assert str(record) == "Contact name: Alice, phones: 1122334455"
+
+    try:
+        record.remove_phone("0000000000")
+    except ValidationError as exc:
+        assert str(exc) == "Phone '0000000000' not found."
+    else:
+        assert False, "Should raise Validation error"
+
+    # Find phone with index
+    phone_1 = "1234567890"
+    phone_2 = "0987654321"
+
+    record_2 = Record("Alex")
+    record_2.add_phone(phone_1)
+    record_2.add_phone(phone_2)
+    assert record_2.phones[0].value == phone_1
+    assert record_2.phones[1].value == phone_2
+    record_2_find_1 = record_2._find_phone_with_index(phone_1)
+    assert record_2_find_1[0] == 0
+    assert record_2_find_1[1].value == phone_1
+    record_2_find_2 = record_2._find_phone_with_index(phone_2)
+    assert record_2_find_2[0] == 1
+    assert record_2_find_2[1].value == phone_2
 
     print("All tests passed.")
