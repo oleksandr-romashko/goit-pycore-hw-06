@@ -172,7 +172,7 @@ Result screenshot - Task solution (Launched in the alternative mode - Data-Drive
 
 #### <a name="assignment-task-requirements"></a>Task requirements:
 
-**Entities (Classes to Implement)**:
+Entities (Classes to Implement):
 
 * `Field`: Base class for record fields.
 * `Name`: Class to store the contact's name (required field).
@@ -180,7 +180,7 @@ Result screenshot - Task solution (Launched in the alternative mode - Data-Drive
 * `Record`: Class to store a contact's information, incl. a name and phones list.
 * `AddressBook`: Class to store and manage multiple Record objects.
 
-**Required Functionality**:
+Required Functionality:
 * `AddressBook`:
   * Add a Record.
   * Find a Record by name.
