@@ -14,10 +14,10 @@ from validators.errors import ValidationError
 
 from utils.deprecation_warning import transition_warning
 
-MSG_CONTACT_EXISTS = "Contact with username '{username}' already exists"
-MSG_CONTACT_NOT_FOUND = "Contact '{username}' not found"
+MSG_CONTACT_EXISTS = "Contact with username '{0}' already exists"
+MSG_CONTACT_NOT_FOUND = "Contact '{0}' not found"
 MSG_NO_CONTACTS = "You don't have any contacts yet, but you can add one anytime."
-MSG_PHONE_EXISTS = "Contact '{username}' has '{phone_number}' phone number already."
+MSG_PHONE_EXISTS = "Contact '{0}' has '{1}' phone number already."
 
 
 def validate_contact_not_in_contacts(username: str, contacts: dict) -> None:
