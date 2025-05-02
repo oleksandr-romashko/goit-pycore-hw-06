@@ -127,7 +127,7 @@ Once your virtual environment is set up, you can run the application code.
 
 <details>
 
-<summary><h3 style="display: inline-block; word-break: break-all;">Assignment - Introduce OOP to the Console Assistant Bot</h3></summary>
+<summary><h3 style="display: inline-block; word-break: break-all;">Solution - Introduce OOP to the Console Assistant Bot</h3></summary>
 
 This task is a follow-up of the previous task **[CLI assistant bot](https://github.com/oleksandr-romashko/goit-pycore-hw-05)**, extended by adding OOP related with data and their processing (how data are stored, what data and what we may do with them).
 
@@ -169,6 +169,12 @@ Result screenshot - Task solution (launched in the typical mode - menu handling 
 Result screenshot - Task solution (Launched in the alternative mode - Data-Driven Menu):
 
 ![task 4 alternative solution screenshot](./assets/results/task_4_alternative_solution.png)
+
+</details>
+
+<details>
+
+<summary><h3 style="display: inline-block; word-break: break-all;">Task requirements</h3></summary>
 
 #### <a name="assignment-task-requirements"></a>Task requirements:
 
