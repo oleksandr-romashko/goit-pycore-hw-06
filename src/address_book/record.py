@@ -44,7 +44,7 @@ class Record:
         Raises:
             ValidationError: If the phone number already exists.
         """
-        if self.__find_phone_with_index(phone_number):
+        if self._find_phone_with_index(phone_number):
             raise ValidationError(
                 MSG_PHONE_EXISTS.format(self.name.value, phone_number)
             )
@@ -59,7 +59,7 @@ class Record:
         Raises:
             ValidationError: If the phone number does not exist.
         """
-        search_result = self.__find_phone_with_index(phone_number)
+        search_result = self._find_phone_with_index(phone_number)
         if not search_result:
             raise ValidationError(f"Phone '{phone_number}' not found.")
 
@@ -75,10 +75,10 @@ class Record:
             ValidationError: If the new phone number already exists
             or if the old phone number is not found.
         """
-        if self.__find_phone_with_index(new_phone_number):
+        if self._find_phone_with_index(new_phone_number):
             raise ValidationError(f"Phone '{new_phone_number}' already exists.")
 
-        search_result = self.__find_phone_with_index(prev_phone_number)
+        search_result = self._find_phone_with_index(prev_phone_number)
         if not search_result:
             raise ValidationError(f"Phone '{prev_phone_number}' not found.")
 
@@ -93,10 +93,10 @@ class Record:
         Returns:
             Phone: The phone object if found, otherwise None.
         """
-        result = self.__find_phone_with_index(phone_number)
+        result = self._find_phone_with_index(phone_number)
         return result[1] if result else None
 
-    def __find_phone_with_index(self, phone_number: str) -> tuple[int, Phone]:
+    def _find_phone_with_index(self, phone_number: str) -> tuple[int, Phone]:
         """
         Searches for a phone number and returns its index and object.
 
