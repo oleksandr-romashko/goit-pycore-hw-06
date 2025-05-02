@@ -17,5 +17,6 @@ class Name(Field):
     """
 
     def __init__(self, username: str):
+        username = username.strip()
         validate_username_length(username)
         super().__init__(username)
